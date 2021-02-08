@@ -2,3 +2,5 @@ venv
 
 .env
 .flaskenv
+.idea
+__pycache__
