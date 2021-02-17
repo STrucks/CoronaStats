@@ -1,0 +1,12 @@
+version: "3.0"
+
+services:
+  theservice:
+    image: theservice:1.0.0
+    container_name: test123
+    build: .
+    ports:
+    - "10000:5000"
+    environment:
+      - "COVID19_APIKEY=57d7423c6cmsh7be2032ac77cf35p1573c9jsn881b0c30e39f"
+      - "FLASK_APP=frontend.py"
