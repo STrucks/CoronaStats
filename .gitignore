@@ -3,4 +3,6 @@ venv
 .flaskenv
 .idea
 __pycache__
-app/__pycache__
+app/__pycache__/
+restart_frontend.bat
+restart_backend.bat

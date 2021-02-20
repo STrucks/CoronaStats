@@ -28,12 +28,16 @@ def prettify_datarow(row):
 
     for key in row.keys():
         if key in ["cases", "active_cases", "died", "cured"]:
+            if row[key] in [-1, "-1"]:
+                row[key] = "Nicht Verfügbar"
             try:
                 value = int(row[key])
                 row[key] = prettify_number(value)
             except Exception:
                 pass
         elif key in ["incidence"]:
+            if row[key] in [-1, "-1"]:
+                row[key] = "Nicht Verfügbar"
             try:
                 value = float(row[key])
                 row[key] = str(round(value, 2))
