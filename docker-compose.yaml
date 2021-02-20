@@ -1,12 +1,12 @@
-version: "3.0"
+version: "3.8"
 
 services:
-  theservice:
-    image: theservice:1.0.0
-    container_name: test123
+  corona-frontend:
     build: .
+    image: "corona-frontend:0.1"
+    container_name: "corona_frontend"
     ports:
-    - "10000:5000"
+    - "5000:5000"
     environment:
       - "COVID19_APIKEY=${COVID19_APIKEY}"
       - "FLASK_APP=frontend.py"
