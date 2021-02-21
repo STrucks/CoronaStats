@@ -37,7 +37,8 @@ class CoronaGlobalClient:
         if response.status_code == 429:
             print("[%s] could not crawl the world wide data because of 429 error. Will wait a bit..." % time.ctime())
             time.sleep(2)
-            self.get_world_wide()
+            entry = self.get_world_wide()
+            return entry
         if response.status_code == 401:
             raise Exception("Invalid API token")
         print(response.status_code)
@@ -60,7 +61,8 @@ class CoronaGlobalClient:
         if response.status_code == 429:
             print("[%s] could not crawl the world wide data because of 429 error. Will wait a bit..." % time.ctime())
             time.sleep(2)
-            self.get_world_wide()
+            entry = self.get_world_wide()
+            return entry
         if response.status_code == 401:
             raise Exception("Invalid API token")
         print(response.status_code)
