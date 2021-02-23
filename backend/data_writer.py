@@ -1,7 +1,7 @@
 import json
 from copy import deepcopy
 
-from data.data_entry import DataEntry
+from models.data_entry import DataEntry
 
 
 class DataWriter:

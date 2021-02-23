@@ -4,8 +4,7 @@ import time
 
 import requests
 
-from data.data_entry import DataEntry
-from util import prettify_number
+from models.data_entry import DataEntry
 
 
 class CoronaGlobalClient:

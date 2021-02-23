@@ -1,0 +1,16 @@
+FROM python:3.8
+
+RUN mkdir -p /usr/src/app/
+WORKDIR /usr/src/app/
+
+COPY ./app /usr/src/app/app/
+COPY ./models /usr/src/app/models/
+COPY frontend.py /usr/src/app
+
+RUN pip install -r app/requirements.txt
+
+ENV FLASK_APP=frontend.py
+
+EXPOSE 5000
+
+CMD ["python3", "frontend.py"]

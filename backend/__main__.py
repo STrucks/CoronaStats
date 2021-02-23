@@ -5,7 +5,7 @@ from pathlib import Path
 
 from backend.corona_api_client import CoronaGlobalClient, CoronaLocalClient
 from backend.data_writer import DataWriter
-from data.data_entry import DataEntry
+from models.data_entry import DataEntry
 
 if __name__ == '__main__':
     # set the work dir to corona stats

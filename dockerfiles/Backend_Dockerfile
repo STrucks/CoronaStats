@@ -1,0 +1,11 @@
+FROM python:3.8
+
+RUN mkdir -p /usr/src/app/
+WORKDIR /usr/src/app/
+
+COPY ./backend /usr/src/app/backend/
+COPY ./models /usr/src/app/models/
+
+RUN pip install -r backend/requirements.txt
+
+CMD ["python3", "-m", "backend"]

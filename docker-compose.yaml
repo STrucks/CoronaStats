@@ -1,12 +1,27 @@
 version: "3.8"
 
 services:
+  corona-backend:
+    build:
+      context: .
+      dockerfile: dockerfiles/Backend_Dockerfile
+    image: "corona-backend:0.1"
+    container_name: "corona_backend"
+    environment:
+      - "COVID19_APIKEY=${COVID19_APIKEY}"
+    volumes:
+      - "data-volume:/usr/src/app/data"
   corona-frontend:
-    build: .
+    build:
+      context: .
+      dockerfile: dockerfiles/Frontend_Dockerfile
     image: "corona-frontend:0.1"
     container_name: "corona_frontend"
     ports:
     - "5000:5000"
     environment:
-      - "COVID19_APIKEY=${COVID19_APIKEY}"
       - "FLASK_APP=frontend.py"
+    volumes:
+      - "data-volume:/usr/src/app/data"
+volumes:
+  data-volume:
