@@ -32,13 +32,18 @@ if __name__ == '__main__':
     data_writer = DataWriter()
     while True:
         for location in ["world_wide", "germany"]:
-            data_entry: DataEntry = global_client.get_data(location)
-            data_writer.update(data_entry)
+            try:
+                data_entry: DataEntry = global_client.get_data(location)
+                data_writer.update(data_entry)
+            except Exception as e:
+                print(str(e))
 
         for location in ["oberhausen", "hannover", "kleve"]:
-            data_entry: DataEntry = local_client.get_data(location)
-            data_writer.update(data_entry)
-
+            try:
+                data_entry: DataEntry = local_client.get_data(location)
+                data_writer.update(data_entry)
+            except Exception as e:
+                print(str(e))
         local_client.refresh()
 
         time.sleep(900)
