@@ -8,4 +8,4 @@ COPY ./models /usr/src/app/models/
 
 RUN pip install -r backend/requirements.txt
 
-CMD ["python3", "-m", "backend"]
+CMD ["python3", "-u", "-m", "backend"]
