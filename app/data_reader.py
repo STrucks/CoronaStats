@@ -15,19 +15,70 @@ class DataReader:
         # load the latest file:
         with open("./data/stats_latest.json", "r", encoding="utf-8") as f:
             latest = json.load(f)
-        data = {
-            "locations": [
-                self.get_world_wide(latest),
-                self.get_germany(latest),
-                self.get_kleve(latest),
-                self.get_oberhausen(latest),
-                self.get_hannover(latest)
-            ],
-            "meta": {
-                "refresh": time.ctime()
+        try:
+            data = {
+                "locations": [
+                    self.get_world_wide(latest),
+                    self.get_germany(latest),
+                    self.get_kleve(latest),
+                    self.get_oberhausen(latest),
+                    self.get_hannover(latest)
+                ],
+                "meta": {
+                    "refresh": time.ctime()
+                }
             }
-        }
-        return data
+        except Exception as e:
+            print(str(e))
+            data = {
+                "locations": [
+                    {
+                        "name": "Weltweit",
+                        "incidence": "Not Available",
+                        "active_cases": "Not Available",
+                        "died": "Not Available",
+                        "cured": "Not Available",
+                        "cases": "Not Available"
+                    },
+                    {
+                        "name": "Deutschland",
+                        "incidence": "Not Available",
+                        "active_cases": "Not Available",
+                        "died": "Not Available",
+                        "cured": "Not Available",
+                        "cases": "Not Available"
+                    },
+                    {
+                        "name": "Kreis Kleve",
+                        "incidence": "Not Available",
+                        "active_cases": "Not Available",
+                        "died": "Not Available",
+                        "cured": "Not Available",
+                        "cases": "Not Available"
+                    },
+                    {
+                        "name": "Oberhausen",
+                        "incidence": "Not Available",
+                        "active_cases": "Not Available",
+                        "died": "Not Available",
+                        "cured": "Not Available",
+                        "cases": "Not Available"
+                    },
+                    {
+                        "name": "Hannover",
+                        "incidence": "Not Available",
+                        "active_cases": "Not Available",
+                        "died": "Not Available",
+                        "cured": "Not Available",
+                        "cases": "Not Available"
+                    },
+                ],
+                "meta": {
+                    "refresh": time.ctime()
+                }
+            }
+        finally:
+            return data
 
     def get_world_wide(self, data):
         data_row = data.get("world_wide")
