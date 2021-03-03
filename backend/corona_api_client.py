@@ -11,7 +11,6 @@ class CoronaGlobalClient:
 
     def __init__(self):
         self.headers = {
-
             'x-rapidapi-key': os.environ.get("COVID19_APIKEY"),
             'x-rapidapi-host': "covid-19-data.p.rapidapi.com"
         }
@@ -39,7 +38,7 @@ class CoronaGlobalClient:
             entry = self.get_world_wide()
             return entry
         if response.status_code == 401:
-            raise Exception("Invalid API token")
+            raise Exception("Invalid API token (%s)" % self.headers["x-rapidapi-key"])
         print(response.status_code)
         response = json.loads(response.text)[0]
 
