@@ -48,6 +48,8 @@ class DataWriter:
     def _add_to_history(self, location, entry):
         with open("./data/stats_history.json", "r", encoding="utf-8") as f:
             history = json.load(f)
+        if history[location] is None:
+            history[location] = []
         history[location].append(entry)
         with open("./data/stats_history.json", "w", encoding="utf-8") as f:
             json.dump(history, f)

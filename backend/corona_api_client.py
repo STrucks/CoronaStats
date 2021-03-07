@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import time
 
 import requests
@@ -94,6 +95,8 @@ class CoronaLocalClient:
             return self.get_hannover()
         elif location == "kleve":
             return self.get_kleve()
+        elif location == "kranenburg":
+            return self.get_kranenburg()
         else:
             raise Exception("Location %s not implemented" % location)
 
@@ -106,8 +109,12 @@ class CoronaLocalClient:
     def get_kleve(self):
         return self.data["kleve"]
 
+    def get_kranenburg(self):
+        return self.data["kranenburg"]
+
     def refresh(self):
         self.data = {}
+        # -- Oberhausen, Kleve and Hannover:
         url = "https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_Landkreisdaten/FeatureServer/0/query?objectIds=70,74,27&outFields=OBJECTID,cases7_per_100k,last_update,cases,deaths,recovered&returnGeometry=false&outSR=4326&f=json"
         response = requests.request("GET", url)
         response = json.loads(response.text)
@@ -130,7 +137,15 @@ class CoronaLocalClient:
 
             entry = DataEntry(location=name, incidence=attributes.get("cases7_per_100k", -1), active=active_cases,
                               deaths=response.get("deaths", -1),
-                              cured=response.get("recovered", -1), total=response.get("cases", -1),
+                              cured=response.get("recovered", -1), total=attributes.get("cases", -1),
                               timestamp=str(time.time()))
 
             self.data[name] = entry
+
+        # Kranenburg:
+        url = "https://www.kreis-kleve.de/de/fachbereich5/corona-virus-daten-und-fakten-pressemitteilungen/"
+        response = requests.request("GET", url)
+        match = re.search(r"(?<=,\s)\d*(?=\sin\sKranenburg)", response.text)
+        matched_text = response.text[match.start():match.end()]
+        self.data["kranenburg"] = DataEntry(location="kranenburg", incidence=-1, active=-1, deaths=-1, cured=-1,
+                                            total=int(matched_text), timestamp=str(time.time()))

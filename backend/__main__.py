@@ -38,7 +38,7 @@ if __name__ == '__main__':
             except Exception as e:
                 print(str(e))
 
-        for location in ["oberhausen", "hannover", "kleve"]:
+        for location in ["oberhausen", "hannover", "kleve", "kranenburg"]:
             try:
                 data_entry: DataEntry = local_client.get_data(location)
                 data_writer.update(data_entry)
