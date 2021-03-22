@@ -145,7 +145,11 @@ class CoronaLocalClient:
         # Kranenburg:
         url = "https://www.kreis-kleve.de/de/fachbereich5/corona-virus-daten-und-fakten-pressemitteilungen/"
         response = requests.request("GET", url)
-        match = re.search(r"(?<=,\s)\d*(?=\sin\sKranenburg)", response.text)
-        matched_text = response.text[match.start():match.end()]
-        self.data["kranenburg"] = DataEntry(location="kranenburg", incidence=-1, active=-1, deaths=-1, cured=-1,
+        try:
+            match = re.search(r"(?<=,\s)\d*(?=\sin\sKranenburg)", response.text)
+            matched_text = response.text[match.start():match.end()]
+        except Exception as e:
+            print(str(e))
+        else:
+            self.data["kranenburg"] = DataEntry(location="kranenburg", incidence=-1, active=-1, deaths=-1, cured=-1,
                                             total=int(matched_text), timestamp=str(time.time()))
