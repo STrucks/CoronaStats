@@ -25,6 +25,12 @@ if __name__ == '__main__':
     except FileNotFoundError:
         with open("./data/stats_history.json", "w", encoding="utf-8") as f:
             f.write("""{"world_wide": [], "germany": [], "oberhausen": [], "hannover": [], "kleve": []}""")
+    try:
+        with open("./data/stats_history.json", "r", encoding="utf-8"):
+            pass
+    except FileNotFoundError:
+        with open("./data/population.json", "w", encoding="utf-8") as f:
+            f.write("""{"world_wide": 7855000000, "germany": 83020000, "oberhausen": 211000, "kleve": 310000, "hannover": 532000, "kranenburg": 11000}""")
 
     # start the crawling life cycle:
     global_client = CoronaGlobalClient()
