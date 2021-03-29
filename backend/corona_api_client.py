@@ -47,7 +47,8 @@ class CoronaGlobalClient:
             active_cases = response["confirmed"] - response["deaths"] - response["recovered"]
         else:
             active_cases = "Not Available"
-        entry = DataEntry(location="world_wide", incidence=-1, active=active_cases, deaths=response.get("deaths", -1),
+        incidence = _get_incidence("world_wide", response.get("confirmed", -1))
+        entry = DataEntry(location="world_wide", incidence=incidence, active=active_cases, deaths=response.get("deaths", -1),
                           cured=response.get("recovered", -1), total=response.get("confirmed", -1),
                           timestamp=str(time.time()))
         return entry
@@ -71,8 +72,8 @@ class CoronaGlobalClient:
             active_cases = response["confirmed"] - response["deaths"] - response["recovered"]
         else:
             active_cases = "Not Available"
-
-        entry = DataEntry(location="germany", incidence=-1, active=active_cases, deaths=response.get("deaths", -1),
+        incidence = _get_incidence("germany", response.get("confirmed", -1))
+        entry = DataEntry(location="germany", incidence=incidence, active=active_cases, deaths=response.get("deaths", -1),
                           cured=response.get("recovered", -1), total=response.get("confirmed", -1),
                           timestamp=str(time.time()))
         return entry
@@ -134,7 +135,8 @@ class CoronaLocalClient:
                 active_cases = attributes["cases"] - attributes["deaths"] - attributes["recovered"]
             else:
                 active_cases = "Not Available"
-
+            if attributes.get("cases7_per_100k", -1) == -1:
+                attributes["cases7_per_100k"] = _get_incidence(name, attributes.get("cases", -1))
             entry = DataEntry(location=name, incidence=attributes.get("cases7_per_100k", -1), active=active_cases,
                               deaths=response.get("deaths", -1),
                               cured=response.get("recovered", -1), total=attributes.get("cases", -1),
@@ -151,5 +153,27 @@ class CoronaLocalClient:
         except Exception as e:
             print(str(e))
         else:
-            self.data["kranenburg"] = DataEntry(location="kranenburg", incidence=-1, active=-1, deaths=-1, cured=-1,
+            incidence = _get_incidence("kranenburg", int(matched_text))
+            self.data["kranenburg"] = DataEntry(location="kranenburg", incidence=incidence, active=-1, deaths=-1, cured=-1,
                                             total=int(matched_text), timestamp=str(time.time()))
+
+def _get_incidence(location_key, total_cases):
+    try:
+        # load the history data:
+        with open("./data/stats_history.json", "r", encoding="utf-8") as f:
+            history = json.load(f)
+        # load the population data:
+        with open("./data/population.json", "r", encoding="utf-8") as f:
+            population = json.load(f)
+
+        now = time.time()
+        target_time = now - 7*24*60*60
+        smallest_diff = min([(float(entry["timestamp"])-target_time)**2 for entry in history[location_key]])
+        for entry in history[location_key]:
+            if (float(entry["timestamp"])-target_time)**2 == smallest_diff:
+                return (total_cases - entry["total"]) * (100000/population[location_key])
+
+        return -1
+    except Exception as e:
+        print(str(e))
+        return -1
