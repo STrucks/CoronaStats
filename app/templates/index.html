@@ -61,6 +61,7 @@ data = {
             {% endfor %}
             </tbody>
         </table>
-        <p>Letzte Aktualisierung: {{data.meta.refresh}}</p>
+        <p>Letzte Aktualisierung (UI): {{data.meta.refresh}}</p>
+        <p>Letzte Aktualisierung (Backend): {{data.meta.timestamp}}</p>
     </body>
 </html>

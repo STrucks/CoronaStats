@@ -1,3 +1,4 @@
+import datetime
 import json
 import time
 
@@ -25,9 +26,13 @@ class DataReader:
                 "meta": {
                     "refresh": time.ctime()
                 }}
+        latest_timestamp = 0
         for loc in conf["available_location_keys"].keys():
             try:
-                data["locations"].append(self.get_by_location(latest, loc, conf["available_location_keys"][loc]))
+                data_entry = self.get_by_location(latest, loc, conf["available_location_keys"][loc])
+                if data_entry["time"] > latest_timestamp:
+                    latest_timestamp = data_entry["time"]
+                data["locations"].append(data_entry)
             except Exception as e:
                 print(str(e))
                 data["locations"].append({
@@ -38,6 +43,7 @@ class DataReader:
                         "cured": "Not Available",
                         "cases": "Not Available"
                     })
+        data["meta"]["timestamp"] = datetime.datetime.fromtimestamp(latest_timestamp).strftime("%m/%d/%Y, %H:%M:%S")
         return data
 
     def get_by_location(self, data, loc_name, loc_key):
@@ -48,7 +54,8 @@ class DataReader:
             "active_cases": data_row["active"],
             "died": data_row["deaths"],
             "cured": data_row["cured"],
-            "cases": data_row["total"]
+            "cases": data_row["total"],
+            "time": float(data_row["timestamp"])
         }
 
     def get_world_wide(self, data):

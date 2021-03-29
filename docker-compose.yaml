@@ -11,6 +11,7 @@ services:
       - "COVID19_APIKEY=${COVID19_APIKEY}"
     volumes:
       - "data-volume:/usr/src/app/data"
+    restart: always
   corona-frontend:
     build:
       context: .
