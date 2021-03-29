@@ -26,7 +26,7 @@ if __name__ == '__main__':
         with open("./data/stats_history.json", "w", encoding="utf-8") as f:
             f.write("""{"world_wide": [], "germany": [], "oberhausen": [], "hannover": [], "kleve": []}""")
     try:
-        with open("./data/stats_history.json", "r", encoding="utf-8"):
+        with open("./data/population.json", "r", encoding="utf-8"):
             pass
     except FileNotFoundError:
         with open("./data/population.json", "w", encoding="utf-8") as f:
