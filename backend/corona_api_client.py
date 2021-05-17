@@ -171,7 +171,7 @@ def _get_incidence(location_key, total_cases):
         smallest_diff = min([(float(entry["timestamp"])-target_time)**2 for entry in history[location_key]])
         for entry in history[location_key]:
             if (float(entry["timestamp"])-target_time)**2 == smallest_diff:
-                return (total_cases - entry["total"]) * (100000/population[location_key])
+                return (total_cases - entry["total"]) * (10000/population[location_key])
 
         return -1
     except Exception as e:
