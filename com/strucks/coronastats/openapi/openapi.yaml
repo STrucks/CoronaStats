@@ -1,0 +1,110 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: tba@gmail.com
+    name: Christopher
+  description: TBA
+  title: coronabackend
+  version: "1.0"
+servers:
+- url: http://localhost:5010
+paths:
+  /current:
+    get:
+      description: Gets the current data for a specific location
+      operationId: current
+      parameters:
+      - description: The location of interest
+        explode: true
+        in: query
+        name: location
+        required: true
+        schema:
+          enum:
+          - world
+          - germany
+          - oberhausen
+          - hannover
+          - kleve
+          - nijmegen
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OverviewDataRow'
+          description: OK
+      summary: Get Current
+      tags:
+      - retrieve
+      x-openapi-router-controller: com.strucks.coronastats.controllers.retrieve_controller
+  /getsince:
+    get:
+      description: Gets the data since a given amount of days for a specific location
+      operationId: getsince
+      parameters:
+      - description: The location of interest
+        explode: true
+        in: query
+        name: location
+        required: true
+        schema:
+          enum:
+          - world
+          - germany
+          - oberhausen
+          - hannover
+          - kleve
+          - nijmegen
+          type: string
+        style: form
+      - description: The amount of days of interest
+        explode: true
+        in: query
+        name: days
+        required: true
+        schema:
+          type: number
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/OverviewDataRow'
+                type: array
+          description: OK
+      summary: Your GET endpoint
+      tags:
+      - retrieve
+      x-openapi-router-controller: com.strucks.coronastats.controllers.retrieve_controller
+components:
+  schemas:
+    OverviewDataRow:
+      example:
+        cases: 0
+        cured: 5
+        active: 1
+        dead: 5
+        incidence: 6
+      properties:
+        cases:
+          title: cases
+          type: integer
+        incidence:
+          title: incidence
+          type: integer
+        active:
+          title: active
+          type: integer
+        dead:
+          title: dead
+          type: integer
+        cured:
+          title: cured
+          type: integer
+      title: OverviewDataRow
+      type: object
