@@ -1,0 +1,5 @@
+{
+  "packageName": "com.strucks.coronastats",
+  "serverPort": 5010,
+  "modelPropertyNaming": "original"
+}

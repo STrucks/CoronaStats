@@ -8,3 +8,4 @@ restart_frontend.bat
 restart_backend.bat
 data/stats_history.json
 data/stats_latest.json
+/generate/
