@@ -1,0 +1,24 @@
+{
+  "world_wide": {
+    "cases": 212066211,
+    "incidence": -1,
+    "active": 23609104,
+    "deaths": 4916536,
+    "cured": 183540571,
+    "location": "world_wide",
+    "timestamp": 1628011954.6876342
+  },
+  "germany": {
+    "cases": 3780235,
+    "incidence": -1,
+    "active": 31751,
+    "deaths": 92184,
+    "cured": 3656300,
+    "location": "germany",
+    "timestamp": 1628011975.7343068
+  },
+  "oberhausen": {},
+  "kleve": {},
+  "hannover": {},
+  "nimwegen": {}
+}
