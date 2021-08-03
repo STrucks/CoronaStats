@@ -27,6 +27,7 @@ paths:
           - hannover
           - kleve
           - nijmegen
+          - kranenburg
           type: string
         style: form
       responses:
@@ -58,6 +59,7 @@ paths:
           - hannover
           - kleve
           - nijmegen
+          - kranenburg
           type: string
         style: form
       - description: The amount of days of interest
@@ -88,8 +90,10 @@ components:
         cases: 0
         cured: 5
         active: 1
-        dead: 5
+        location: location
         incidence: 6
+        deaths: 5
+        timestamp: 2.3021358869347655
       properties:
         cases:
           title: cases
@@ -100,11 +104,17 @@ components:
         active:
           title: active
           type: integer
-        dead:
-          title: dead
+        deaths:
+          title: deaths
           type: integer
         cured:
           title: cured
           type: integer
+        location:
+          title: location
+          type: string
+        timestamp:
+          title: timestamp
+          type: number
       title: OverviewDataRow
       type: object
