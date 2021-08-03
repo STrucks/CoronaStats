@@ -32,7 +32,7 @@ class CoronaGlobalClient:
     def get_world_wide(self):
         time.sleep(1)
         url_world_wide = "https://covid-19-data.p.rapidapi.com/totals"
-        response = requests.request("GET", url_world_wide, headers=self.headers)
+        response = requests.get(url_world_wide, headers=self.headers)
         if response.status_code == 429:
             print("[%s] could not crawl the world wide data because of 429 error. Will wait a bit..." % time.ctime())
             time.sleep(2)

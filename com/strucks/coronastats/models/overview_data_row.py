@@ -15,7 +15,7 @@ class OverviewDataRow(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, cases=None, incidence=None, active=None, dead=None, cured=None):  # noqa: E501
+    def __init__(self, cases=None, incidence=None, active=None, deaths=None, cured=None, location=None, timestamp=None):  # noqa: E501
         """OverviewDataRow - a model defined in OpenAPI
 
         :param cases: The cases of this OverviewDataRow.  # noqa: E501
@@ -24,32 +24,42 @@ class OverviewDataRow(Model):
         :type incidence: int
         :param active: The active of this OverviewDataRow.  # noqa: E501
         :type active: int
-        :param dead: The dead of this OverviewDataRow.  # noqa: E501
-        :type dead: int
+        :param deaths: The deaths of this OverviewDataRow.  # noqa: E501
+        :type deaths: int
         :param cured: The cured of this OverviewDataRow.  # noqa: E501
         :type cured: int
+        :param location: The location of this OverviewDataRow.  # noqa: E501
+        :type location: str
+        :param timestamp: The timestamp of this OverviewDataRow.  # noqa: E501
+        :type timestamp: float
         """
         self.openapi_types = {
             'cases': int,
             'incidence': int,
             'active': int,
-            'dead': int,
-            'cured': int
+            'deaths': int,
+            'cured': int,
+            'location': str,
+            'timestamp': float
         }
 
         self.attribute_map = {
             'cases': 'cases',
             'incidence': 'incidence',
             'active': 'active',
-            'dead': 'dead',
-            'cured': 'cured'
+            'deaths': 'deaths',
+            'cured': 'cured',
+            'location': 'location',
+            'timestamp': 'timestamp'
         }
 
         self._cases = cases
         self._incidence = incidence
         self._active = active
-        self._dead = dead
+        self._deaths = deaths
         self._cured = cured
+        self._location = location
+        self._timestamp = timestamp
 
     @classmethod
     def from_dict(cls, dikt) -> 'OverviewDataRow':
@@ -126,25 +136,25 @@ class OverviewDataRow(Model):
         self._active = active
 
     @property
-    def dead(self):
-        """Gets the dead of this OverviewDataRow.
+    def deaths(self):
+        """Gets the deaths of this OverviewDataRow.
 
 
-        :return: The dead of this OverviewDataRow.
+        :return: The deaths of this OverviewDataRow.
         :rtype: int
         """
-        return self._dead
+        return self._deaths
 
-    @dead.setter
-    def dead(self, dead):
-        """Sets the dead of this OverviewDataRow.
+    @deaths.setter
+    def deaths(self, deaths):
+        """Sets the deaths of this OverviewDataRow.
 
 
-        :param dead: The dead of this OverviewDataRow.
-        :type dead: int
+        :param deaths: The deaths of this OverviewDataRow.
+        :type deaths: int
         """
 
-        self._dead = dead
+        self._deaths = deaths
 
     @property
     def cured(self):
@@ -166,3 +176,45 @@ class OverviewDataRow(Model):
         """
 
         self._cured = cured
+
+    @property
+    def location(self):
+        """Gets the location of this OverviewDataRow.
+
+
+        :return: The location of this OverviewDataRow.
+        :rtype: str
+        """
+        return self._location
+
+    @location.setter
+    def location(self, location):
+        """Sets the location of this OverviewDataRow.
+
+
+        :param location: The location of this OverviewDataRow.
+        :type location: str
+        """
+
+        self._location = location
+
+    @property
+    def timestamp(self):
+        """Gets the timestamp of this OverviewDataRow.
+
+
+        :return: The timestamp of this OverviewDataRow.
+        :rtype: float
+        """
+        return self._timestamp
+
+    @timestamp.setter
+    def timestamp(self, timestamp):
+        """Sets the timestamp of this OverviewDataRow.
+
+
+        :param timestamp: The timestamp of this OverviewDataRow.
+        :type timestamp: float
+        """
+
+        self._timestamp = timestamp

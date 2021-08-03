@@ -1,6 +1,7 @@
 import connexion
 import six
 
+from com.strucks.coronastats.data_manager import DataManager
 from com.strucks.coronastats.models.overview_data_row import OverviewDataRow  # noqa: E501
 from com.strucks.coronastats import util
 
@@ -15,7 +16,8 @@ def current(location):  # noqa: E501
 
     :rtype: OverviewDataRow
     """
-    return 'do some magic!'
+    dm: DataManager = DataManager.instance()
+    return OverviewDataRow.from_dict(dm.get_latest_by_api_key(location))
 
 
 def getsince(location, days):  # noqa: E501
